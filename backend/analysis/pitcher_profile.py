@@ -50,6 +50,8 @@ def get_pitch_mix(df: pd.DataFrame) -> list[dict]:
         w = group["blend_weight"].values if "blend_weight" in group.columns else None
 
         def wavg(col):
+            if col not in group.columns:
+                return None
             vals = group[col].dropna()
             if vals.empty:
                 return None

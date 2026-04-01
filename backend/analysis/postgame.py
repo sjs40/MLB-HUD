@@ -34,7 +34,7 @@ def extract_game_pitch_events(feed: dict) -> list[dict]:
             pitch_data = event.get("pitchData", {})
             coordinates = pitch_data.get("coordinates", {})
             hit_data = event.get("hitData", {}) or {}
-
+            breaks = pitch_data.get("breaks", {})
             events_out.append({
                 "inning": about.get("inning"),
                 "is_top_inning": about.get("isTopInning"),
@@ -45,10 +45,13 @@ def extract_game_pitch_events(feed: dict) -> list[dict]:
                 "pitch_type": details.get("type", {}).get("code"),
                 "description": details.get("description", ""),
                 "release_speed": pitch_data.get("startSpeed"),
+                "release_spin_rate": pitch_data.get("spinRate"),
+                "pfx_x": breaks.get("breakHorizontal"),
+                "pfx_z": breaks.get("breakVertical"),
                 "zone": pitch_data.get("zone"),
                 "plate_x": coordinates.get("pX"),
                 "plate_z": coordinates.get("pZ"),
-                "estimated_woba_using_speedangle": hit_data.get("launchSpeedAngle") and hit_data.get("launchSpeed"),
+                "estimated_woba_using_speedangle": hit_data.get("estimatedWOBA"),
                 "launch_speed": hit_data.get("launchSpeed"),
             })
 
