@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tailwindcss:*)",
+      "Bash(node node_modules/tailwindcss/lib/cli.js init -p)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(pip install:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://statsapi.mlb.com/api/v1/game/824698/feed/live\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://statsapi.mlb.com/api/v1.1/game/824698/feed/live\")"
+    ]
+  }
+}
