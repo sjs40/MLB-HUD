@@ -3,12 +3,13 @@ import PitcherProfile from './PitcherProfile'
 import LineupMatrix from './LineupMatrix'
 import NarrativeSection from './NarrativeSection'
 import LiveTracker from './LiveTracker'
+import PostgameView from './PostgameView'
 
 export default function PregameView({ apiBase, game, onBack }) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [activeTab, setActiveTab] = useState('pregame') // 'pregame' | 'live'
+  const [activeTab, setActiveTab] = useState('pregame') // 'pregame' | 'live' | 'postgame'
   const [activeSide, setActiveSide] = useState('away')  // 'away' | 'home'
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function PregameView({ apiBase, game, onBack }) {
 
       {/* Mode tabs */}
       <div className="flex gap-2 mb-6">
-        {['pregame', 'live'].map((tab) => (
+        {['pregame', 'live', 'postgame'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -51,7 +52,7 @@ export default function PregameView({ apiBase, game, onBack }) {
               activeTab === tab ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:text-white'
             }`}
           >
-            {tab === 'pregame' ? 'Pre-Game Analysis' : '🔴 Live Tracker'}
+            {tab === 'pregame' ? 'Pre-Game Analysis' : tab === 'live' ? '🔴 Live Tracker' : 'Post-Game Analysis'}
           </button>
         ))}
       </div>
@@ -59,6 +60,11 @@ export default function PregameView({ apiBase, game, onBack }) {
       {/* Live tracker */}
       {activeTab === 'live' && (
         <LiveTracker apiBase={apiBase} gameId={game.game_id} />
+      )}
+
+
+      {activeTab === 'postgame' && (
+        <PostgameView apiBase={apiBase} gameId={game.game_id} />
       )}
 
       {/* Pre-game analysis */}

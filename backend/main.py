@@ -10,7 +10,7 @@ Run with:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import schedule, pregame, live, adhoc, players
+from .routers import schedule, pregame, live, adhoc, players, postgame
 
 app = FastAPI(
     title="MLB-HUD",
@@ -31,6 +31,7 @@ app.include_router(pregame.router)
 app.include_router(live.router)
 app.include_router(adhoc.router)
 app.include_router(players.router)
+app.include_router(postgame.router)
 
 
 @app.get("/")
